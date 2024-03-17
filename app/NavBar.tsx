@@ -1,8 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { AiFillBug } from "react-icons/ai";
 
 const NavBar = () => {
+  const currentPath = usePathname();
+
+  // usePathname() hook depends on browser API thus we need to convert it to client component - browser API are only accessible in the client component
+
+  console.log(currentPath);
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
@@ -17,7 +25,9 @@ const NavBar = () => {
           <Link
             href={link.href}
             key={link.href}
-            className="text-zinc-500 hover:text-zinc-800 transition-colors"
+            className={`${
+              link.href === currentPath ? "text-zinc-900" : "text-zinc-500"
+            } hover:text-zinc-800 transition-colors`}
           >
             {link.label}
           </Link>
